@@ -7,7 +7,7 @@ const router = new Router();
 router.post("/", checkRole("ADMIN"), loadController.create);
 router.get("/", loadController.getAll);
 router.get("/:category", loadController.getCategory);
-router.put("/", loadController.put);
-router.delete("/", loadController.delete);
+router.put("/:id", loadController.put);
+router.delete("/:id", loadController.delete);
 
 module.exports = router;

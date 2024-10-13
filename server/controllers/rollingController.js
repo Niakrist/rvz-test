@@ -12,8 +12,19 @@ class RollingController {
     return res.json(rollings);
   }
   async getCategory(req, res) {}
-  async put(req, res) {}
-  async delete(req, res) {}
+  async put(req, res) {
+    const { id } = req.params;
+    const { name } = req.body;
+    const rolling = await Rolling.findOne({ where: { id } });
+    rolling.name = name;
+    await rolling.save();
+    return res.json(rolling);
+  }
+  async delete(req, res) {
+    const { id } = req.params;
+    const rolling = await Rolling.destroy({ where: { id } });
+    return res.json(rolling);
+  }
 }
 
 module.exports = new RollingController();

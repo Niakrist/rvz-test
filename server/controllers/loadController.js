@@ -12,8 +12,19 @@ class LoadController {
     return res.json(loads);
   }
   async getCategory(req, res) {}
-  async put(req, res) {}
-  async delete(req, res) {}
+  async put(req, res) {
+    const { id } = req.params;
+    const { name } = req.body;
+    const load = await Load.findOne({ where: { id } });
+    load.name = name;
+    await load.save();
+    return res.json(load);
+  }
+  async delete(req, res) {
+    const { id } = req.params;
+    const load = await Load.destroy({ where: { id } });
+    return res.json(load);
+  }
 }
 
 module.exports = new LoadController();
