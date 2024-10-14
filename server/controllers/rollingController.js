@@ -11,7 +11,7 @@ class RollingController {
     const rollings = await Rolling.findAll();
     return res.json(rollings);
   }
-  async getCategory(req, res) {}
+  // async getCategory(req, res) {}
   async put(req, res) {
     const { id } = req.params;
     const { name } = req.body;

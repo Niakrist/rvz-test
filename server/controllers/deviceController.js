@@ -108,8 +108,43 @@ class DeviceController {
 
     return res.json(device);
   }
-  async put(req, res) {}
-  async delete(req, res) {}
+  async put(req, res) {
+    const { id } = req.params;
+    let { name, price, loadId, rollingId, rowId, info } = req.body;
+    const { img } = req.files;
+    let fileName = uuid.v4() + ".jpg";
+    img.mv(path.resolve(__dirname, "..", "static", fileName));
+    const device = await Device.findOne({ where: { id } });
+
+    // Сюда добавить info
+    if (info) {
+      info = JSON.parse(info);
+      info.forEach((element) => {
+        DeviceInfo.create({
+          title: element.title,
+          description: element.description,
+          deviceId: device.id,
+        });
+      });
+    }
+
+    // Сюда добавить info
+
+    device.name = name;
+    device.price = price;
+    device.loadId = loadId;
+    device.rollingId = rollingId;
+    device.rowId = rowId;
+    device.img = fileName;
+
+    device.save();
+    return res.json(device);
+  }
+  async delete(req, res) {
+    const { id } = req.params;
+    const device = await Device.findOne({ where: { id } });
+    return res.json(device);
+  }
 }
 
 module.exports = new DeviceController();

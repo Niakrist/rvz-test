@@ -11,7 +11,7 @@ class LoadController {
     const loads = await Load.findAll();
     return res.json(loads);
   }
-  async getCategory(req, res) {}
+  // async getCategory(req, res) {}
   async put(req, res) {
     const { id } = req.params;
     const { name } = req.body;
